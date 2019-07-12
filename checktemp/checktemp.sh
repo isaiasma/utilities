@@ -27,7 +27,6 @@ SMS_TO="XXXXXXXXX"
 CHECKTEMP_CONFIG="./checktemp.conf"
 [ -f "$CHECKTEMP_CONFIG" ] && . "$CHECKTEMP_CONFIG"
 
-
 # other values
 
 LASTTEMPFILE="checktemp.lasttemp"
@@ -60,7 +59,6 @@ set_status() {
 set_temp() {
  echo "$@" > $LASTTEMPFILE
 }
-
 
 # old URL movistar SMS: http://open.movilforum.com/wiki/index.php/Portada
 # new URL movistar SMS https://enviamensajes.movistar.es/EnviaMensajes/
@@ -98,7 +96,6 @@ TSOURCE_LAST_LINE=$(tail -n 1 $TSOURCE)
 # take temperature (8.18*C) from a line like this "2019-07-10 20:46.03;20190710204603;2019.07.10T20.46.03;8.18"
 TEMPERATURE=$(echo "$TSOURCE_LAST_LINE" | cut -d";" -f 4)
 TEMPERATUREDATE=$(echo "$TSOURCE_LAST_LINE" | cut -d";" -f 3)
-
 
 floatre='^[0-9]+([.][0-9]+)?$'
 numberre='^[0-9]+$'

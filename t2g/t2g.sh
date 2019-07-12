@@ -4,6 +4,11 @@ PNG_FILE="temperature.png"
 
 T_SOURCE=/var/log/temperatures.log
 
+# Load t2g user configuration to override default configuration.
+T2G_CONFIG="./t2g.conf"
+[ -f "$T2G_CONFIG" ] && . "$T2G_CONFIG"
+
+
 cat $T_SOURCE | grep `date +%Y-%m-%d` | cut -d";" -f 1,4 | cut -c 11- > today.csv
 cat $T_SOURCE | grep `date --date="-1 day" +%Y-%m-%d` | cut -d";" -f 1,4 | cut -c 11- > yesterday.csv
 
