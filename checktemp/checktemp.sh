@@ -99,7 +99,6 @@ TEMPERATUREDATE=$(echo "$TSOURCE_LAST_LINE" | cut -d";" -f 3)
 
 floatre='^[0-9]+([.][0-9]+)?$'
 numberre='^[0-9]+$'
-datere='^[0-9]{14}$' # date in YYYYmmddHHMMSS
 
 if ! [[ $TEMPERATURE =~ $floatre ]] ; then # if TEMPERATURE is not a number
         if [ "A$LASTSTATUS" != "AUNKNOWN" ] ; then
