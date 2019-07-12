@@ -14,8 +14,8 @@
 TEMPWARNING="10"
 TEMPCRITICAL="15"
 
-PROGRAM="$0"
-LOGFILE="${PROGRAM}.log"
+PROGRAM="checktemp"
+LOGFILE="checktemp.log"
 TSOURCE="/var/log/temperatures.log"
 
 # movistar SMS service
@@ -112,7 +112,14 @@ if ! [[ $TEMPERATURE =~ $floatre ]] ; then # if TEMPERATURE is not a number
         exit 1
 fi
 
-if ! [[ $TEMPERATUREDATE =~ $datere ]] ; then # if TEMPERATUREDATE is not a date
+# check if temperature date is more than 10 minutes old
+# be sure both systems use same timezone and use ntp or similar
+
+# get date number (YYYYmmddHHMMSS) from a line like this "2019-07-10 20:46.03;20190710204603;2019.07.10T20.46.03;8.18"
+temperaturenumber=$(echo "$TSOURCE_LAST_LINE" | cut -d";" -f 2 | cut -c -12 ) # remove last two digits from second field
+datere='^[0-9]{12}$' # date in YYYYmmddHHMM
+
+if ! [[ $temperaturenumber =~ $datere ]] ; then # if temperaturenumber is not a date
         if [ "A$LASTSTATUS" != "AUNKNOWN" ] ; then
          set_status "UNKNOWN"
          send_SMS "Nevera temperature date is not a valid date"
@@ -123,11 +130,6 @@ if ! [[ $TEMPERATUREDATE =~ $datere ]] ; then # if TEMPERATUREDATE is not a date
         exit 2
 fi
 
-# check if temperature date is more than 10 minutes old
-# be sure both systems use same timezone and use ntp or similar
-
-# get date number (YYYYmmddHHMMSS) from a line like this "2019-07-10 20:46.03;20190710204603;2019.07.10T20.46.03;8.18"
-temperaturenumber=$(echo "$TSOURCE_LAST_LINE" | cut -d";" -f 2 | cut -c -12 ) # remove last two digits from second field
 datenow=$(date +%Y%m%d%H%M) # now in YYYYmmddHHMM format (minutes, not seconds)
 datediff=`expr $datenow - $temperaturenumber`
 
