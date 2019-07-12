@@ -1,0 +1,19 @@
+
+# file checktemp.conf.example
+
+# rename to checktemp.conf and chage it to set your own configuration
+
+# temperature data source
+# csv like file with format (date_format1;date_format2;date_format3;temperature_celsius):
+# 2019-07-10 13:40.04;20190710134004;2019.07.10T13.40.04;6.36
+TSOURCE="/var/log/temperatures.log"
+
+TEMPWARNING="10"
+TEMPCRITICAL="15"
+
+# movistar SMS service
+
+SMS_LOGIN=6YZXYZXYZ
+SMS_PASSWD=grSuperCCJPasswordaFt
+SMS_TO="XXXXXXXXX"
+
