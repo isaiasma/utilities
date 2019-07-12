@@ -2,3 +2,6 @@ t2g.conf
 temperature.png
 today.csv
 yesterday.csv
+*~
+*.swp
+*.swo
