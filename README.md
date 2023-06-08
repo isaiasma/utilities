@@ -13,6 +13,6 @@ This project is licensed under the BSD License
 ## Acknowledgments
 
 * linux community
-* raspberry pi
-* etc
+* raspberry pi commnity
+
 
